@@ -7,7 +7,7 @@ on:
       - "v*"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   docker:
@@ -48,3 +48,55 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Derive release version
+        shell: bash
+        run: |
+          # github.ref_name is the tag name, e.g. v1.2.3
+          VERSION="${GITHUB_REF_NAME#v}"
+          echo "VERSION=${VERSION}" >> "$GITHUB_ENV"
+
+      - name: Build release body from CHANGELOG
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          TAG="${GITHUB_REF_NAME}"
+          VERSION="${TAG#v}"
+
+          # Header with Docker Hub references
+          cat > release_body.md <<EOF
+          Docker image (Docker Hub):
+          - syshead/gwc-exporter:${VERSION}
+          - syshead/gwc-exporter:latest
+
+          Pull:
+          - docker pull syshead/gwc-exporter:${VERSION}
+
+          Docker Hub:
+          - https://hub.docker.com/r/syshead/gwc-exporter
+
+          Changelog:
+          EOF
+
+          # Extract the section that starts with: ## [vX.Y.Z]
+          # and ends right before the next "## [" heading.
+          awk -v tag="$TAG" '
+            $0 ~ "^## \\[" tag "\\]" {in=1; print; next}
+            in && $0 ~ "^## \\[" {exit}
+            in {print}
+          ' CHANGELOG.md >> release_body.md
+
+          # Fail if the section was not found (only header written)
+          if ! grep -q "^## \\[${TAG}\\]" release_body.md; then
+            echo "ERROR: CHANGELOG.md does not contain a section header for ${TAG} (expected: ## [${TAG}] - ...)" >&2
+            exit 1
+          fi
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: ${{ env.VERSION }}
+          generate_release_notes: false
+          body_path: release_body.md
