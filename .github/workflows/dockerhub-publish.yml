@@ -48,6 +48,9 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          # Docker Scout: supply chain attestations
+          provenance: true
+          sbom: true
 
       - name: Derive release version
         shell: bash
