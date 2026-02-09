@@ -63,6 +63,9 @@ kubectl apply -f https://github.com/SysHead-Labs/gwc-exporter/raw/main/kubernete
 Prometheus Operator ScrapeConfig example:
 - `https://github.com/SysHead-Labs/gwc-exporter/blob/main/prometheus/scrape-gwc-example.yaml`
 
+Grafana Dashboard example:
+- `https://github.com/SysHead-Labs/gwc-exporter/blob/main/grafana/gwc-exporter-dashboard.json`
+
 ## Tags
 
 - `latest`: latest published release

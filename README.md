@@ -23,7 +23,7 @@ go build -ldflags="-s -w" -o gwc-exporter gwc-exporter.go
 ```bash
 cd src
 ./gwc-exporter \
-  -target.url "http://geowebcache:8080/geowebcache" \
+  -target.url "http://192.168.1.1:8080/geowebcache" \
   -web.listen-address ":9109" \
   -web.telemetry-path "/metrics"
 ```
@@ -70,8 +70,7 @@ Folder structure:
 
 Workflow behavior:
 
-- Push to `main`: publishes a multi-arch image and updates `latest`
-- Push tag like `v1.2.3`: publishes tag `v1.2.3`
+- Push tag like `v1.2.3`: publishes a multi-arch image with tag `v1.2.3` and updates `latest`
 - Manual run (`workflow_dispatch`) is supported
 
 Required GitHub repository secrets:
