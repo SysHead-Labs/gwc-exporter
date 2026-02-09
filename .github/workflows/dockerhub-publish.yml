@@ -3,8 +3,6 @@ name: dockerhub-publish
 on:
   workflow_dispatch:
   push:
-    branches:
-      - main
     tags:
       - "v*"
 
@@ -36,10 +34,10 @@ jobs:
         with:
           images: syshead/gwc-exporter
           tags: |
-            type=ref,event=tag
-            type=raw,value=latest,enable={{is_default_branch}}
-            type=raw,value=latest,enable={{is_tag}}
-            type=sha,prefix=sha-
+            # for git tags like v1.2.3, publish image tag 1.2.3
+            type=semver,pattern={{version}}
+            # also publish/update the floating latest tag
+            type=raw,value=latest
 
       - name: Build and push
         uses: docker/build-push-action@v6
