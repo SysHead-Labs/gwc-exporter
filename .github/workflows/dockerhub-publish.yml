@@ -82,9 +82,9 @@ jobs:
           # Extract the section that starts with: ## [vX.Y.Z]
           # and ends right before the next "## [" heading.
           awk -v tag="$TAG" '
-            $0 ~ "^## \\[" tag "\\]" {in=1; print; next}
-            in && $0 ~ "^## \\[" {exit}
-            in {print}
+            $0 ~ "^## \\[" tag "\\]" {inside=1; print; next}
+            inside && $0 ~ "^## \\[" {exit}
+            inside {print}
           ' CHANGELOG.md >> release_body.md
 
           # Fail if the section was not found (only header written)
