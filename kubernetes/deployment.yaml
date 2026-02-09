@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gwc-exporter
+  namespace: monitoring
+  labels:
+    app: gwc-exporter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gwc-exporter
+  template:
+    metadata:
+      labels:
+        app: gwc-exporter
+        # replace gwc_instance label with value you want to see in prometheus as "instance name"
+        gwc_instance: gwc-exporter-prod-1
+    spec:
+      containers:
+        - name: gwc-exporter
+          image: syshead/gwc-exporter:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: metrics
+              containerPort: 9109
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: gwc-exporter-config
+          readinessProbe:
+            httpGet:
+              path: /-/healthy
+              port: metrics
+            initialDelaySeconds: 3
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /-/healthy
+              port: metrics
+            initialDelaySeconds: 10
+            periodSeconds: 15
+            timeoutSeconds: 2
+            failureThreshold: 3
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 250m
+              memory: 256Mi

@@ -1,0 +1,25 @@
+# Binaries
+gwc-exporter
+src/gwc-exporter
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Go build/test artifacts
+*.test
+*.out
+coverage.out
+cover.out
+
+# Local caches
+.cache/
+
+# IDE/editor
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store

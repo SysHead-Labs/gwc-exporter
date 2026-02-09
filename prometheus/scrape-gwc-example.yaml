@@ -1,0 +1,31 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: gwc-exporter
+  namespace: monitoring
+  labels:
+    scrape: "gwc-exporter"
+    release: prometheus
+spec:
+  kubernetesSDConfigs:
+    - role: Endpoints
+  metricsPath: /metrics
+  scheme: HTTP
+  scrapeInterval: 30s
+  scrapeTimeout: 10s
+  relabelings:
+    # Keep only gwc-exporter service in monitoring namespace.
+    - action: keep
+      sourceLabels: [__meta_kubernetes_namespace, __meta_kubernetes_service_name]
+      regex: monitoring;gwc-exporter
+    # Keep only service endpoint port named "metrics".
+    - action: keep
+      sourceLabels: [__meta_kubernetes_endpoint_port_name]
+      regex: metrics
+    - action: replace
+      targetLabel: job
+      replacement: gwc-exporter
+    - action: replace
+      targetLabel: instance
+      sourceLabels: [__meta_kubernetes_pod_label_gwc_instance]
+
