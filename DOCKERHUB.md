@@ -48,9 +48,9 @@ docker run --rm -p 9200:9200 \
 ## Kubernetes
 
 Manifests are in the GitHub repository:
-- ConfigMap: `https://github.com/SysHead-Labs/gwc-exporter/blob/main/kubernetes/configmap.yaml`
-- Deployment: `https://github.com/SysHead-Labs/gwc-exporter/blob/main/kubernetes/deployment.yaml`
-- Service: `https://github.com/SysHead-Labs/gwc-exporter/blob/main/kubernetes/service.yaml`
+- ConfigMap: https://github.com/SysHead-Labs/gwc-exporter/blob/main/kubernetes/configmap.yaml
+- Deployment: https://github.com/SysHead-Labs/gwc-exporter/blob/main/kubernetes/deployment.yaml
+- Service: https://github.com/SysHead-Labs/gwc-exporter/blob/main/kubernetes/service.yaml
 
 Apply (example):
 
