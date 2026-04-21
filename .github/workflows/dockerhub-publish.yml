@@ -1,4 +1,4 @@
-name: dockerhub-publish
+name: Publish to DockerHub
 
 on:
   workflow_dispatch:
