@@ -1,6 +1,6 @@
 module github.com/SysHead-Labs/gwc-exporter
 
-go 1.25.7
+go 1.25.9
 
 require github.com/prometheus/client_golang v1.23.2
 
