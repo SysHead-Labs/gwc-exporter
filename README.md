@@ -4,11 +4,13 @@ Exports runtime values from the GeoWebCache home/status page as Prometheus metri
 
 ## Project Metadata
 
-- License: `MIT` (see `LICENSE`)
-- Contributing guide: `CONTRIBUTING.md`
-- Code of conduct: `CODE_OF_CONDUCT.md`
-- Security policy: `SECURITY.md`
-- Changelog: `CHANGELOG.md`
+- License: `MIT` (see [LICENSE](LICENSE)`)
+- Contributing guide: [CONTRIBUTING.md](CONTRIBUTING.md)
+- Code of conduct: [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
+- Security policy: [SECURITY.md](SECURITY.md)
+- Changelog: [CHANGELOG.md](CHANGELOG.md)
+- Website: [Syshead](https://syshead.com)
+- Full HowTO: [Syshead Blog](https://syshead.com/exporting-geowebcache-runtime-metrics-to-prometheus-a-practical-devops-walkthrough/)
 
 ## Build Manually
 

@@ -5,6 +5,12 @@ Prometheus exporter for GeoWebCache runtime / home page cache statistics.
 Source code (GitHub):
 - https://github.com/SysHead-Labs/gwc-exporter
 
+Website:
+- https://syshead.com
+
+HowTo:
+- https://syshead.com/exporting-geowebcache-runtime-metrics-to-prometheus-a-practical-devops-walkthrough/
+
 Docker image:
 - `syshead/gwc-exporter`
 
